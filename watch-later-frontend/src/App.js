@@ -156,6 +156,16 @@ const WatchForm = ({ formVisible, setFormVisible, editMode, formData, fetchWatch
       console.error('Error submitting watch later item:', error);
     }
   };
+  const handleCancel = () => {
+    // Reset the form fields when cancel is clicked
+    setWatchLaterData({
+      name: '',
+      platform: '',
+      genre: '',
+      link: '',
+    });
+    setFormVisible(false);
+  };
 
   return (
     <div className="watch-form" style={{ display: formVisible ? 'block' : 'none' }}>
@@ -197,7 +207,10 @@ const WatchForm = ({ formVisible, setFormVisible, editMode, formData, fetchWatch
           <label>Link:</label>
           <input type="text" value={watchLaterData.link} onChange={(e) => setWatchLaterData({ ...watchLaterData, link: e.target.value })} />
         </div>
-        <button type="submit">{editMode ? 'Update' : 'Add'}</button>
+        <div className="button-group">
+          <button type="submit">{editMode ? 'Update' : 'Add'}</button>
+          <button type="button" onClick={handleCancel}>Cancel</button>
+        </div>
       </form>
     </div>
   );
